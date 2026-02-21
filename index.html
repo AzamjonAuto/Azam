@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Azamjon Odiljonov — Automotive Sales Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAFAF7;--white:#FFFFFF;--gold:#B8912A;--gold-light:#D4AF58;
+    --gold-pale:#F5EDD6;--navy:#1A2332;--charcoal:#2C3548;--gray:#6B7280;
+    --gray-light:#E8EBF0;--border:#DDD8CC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--charcoal);line-height:1.6;-webkit-tap-highlight-color:transparent;}
+
+  /* MOBILE CTA */
+  .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:var(--navy);grid-template-columns:1fr 1fr;border-top:2px solid var(--gold);padding-bottom:env(safe-area-inset-bottom);}
+  .mobile-cta a{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 12px;font-size:.82rem;font-weight:600;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;}
+  .cta-call{background:var(--gold);color:var(--white);}
+  .cta-email{background:transparent;color:var(--gold);border-left:1px solid rgba(184,145,42,.3);}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(250,250,247,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--navy);letter-spacing:.04em;}
+  .nav-brand span{color:var(--gold);}
+  .nav-links{display:flex;gap:24px;align-items:center;}
+  .nav-links a{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);text-decoration:none;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{background:var(--gold)!important;color:var(--white)!important;padding:8px 18px!important;border-radius:4px;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    height:100vh;
+    margin-top:60px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    background-image:url('https://images.unsplash.com/photo-1621993202936-e7f89f6f3d38?w=1600&q=85&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center center;
+    animation:slowZoom 12s ease-out forwards;
+  }
+  @keyframes slowZoom{from{transform:scale(1.07);}to{transform:scale(1);}}
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+      105deg,
+      rgba(10,16,28,0.88) 0%,
+      rgba(10,16,28,0.65) 55%,
+      rgba(10,16,28,0.25) 100%
+    );
+  }
+  .hero-content{
+    position:relative;
+    z-index:10;
+    padding:0 32px;
+    max-width:620px;
+  }
+  .hero-eyebrow{
+    font-size:.65rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--gold-light);margin-bottom:18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold-light);}
+  .hero-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.8rem,6vw,5rem);
+    font-weight:300;line-height:1.06;
+    color:var(--white);margin-bottom:20px;
+  }
+  .hero-name em{font-style:italic;color:var(--gold-light);}
+  .hero-tagline{
+    font-size:.88rem;color:rgba(255,255,255,.75);
+    line-height:1.78;margin-bottom:36px;max-width:460px;
+  }
+  .hero-tagline strong{color:rgba(255,255,255,.96);}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+  .btn-gold{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--gold);color:var(--white);
+    padding:16px 32px;border-radius:4px;
+    font-size:.78rem;font-weight:600;letter-spacing:.14em;
+    text-transform:uppercase;text-decoration:none;min-height:52px;
+    transition:background .2s;
+  }
+  .btn-gold:hover{background:#a07820;}
+  .btn-outline{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:transparent;color:var(--white);
+    padding:16px 32px;border-radius:4px;
+    border:1.5px solid rgba(255,255,255,.45);
+    font-size:.78rem;font-weight:600;letter-spacing:.14em;
+    text-transform:uppercase;text-decoration:none;min-height:52px;
+    backdrop-filter:blur(4px);
+  }
+  /* Scroll hint */
+  .scroll-hint{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+    z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:rgba(255,255,255,.45);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .scroll-arrow{
+    width:20px;height:20px;border-right:1.5px solid rgba(255,255,255,.35);
+    border-bottom:1.5px solid rgba(255,255,255,.35);
+    transform:rotate(45deg);
+    animation:bounce 2s infinite;
+  }
+  @keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(5px);}}
+
+  /* STATS */
+  .stats-strip{display:grid;grid-template-columns:repeat(3,1fr);background:var(--navy);border-bottom:2px solid var(--gold);}
+  .stat-item{padding:22px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.07);}
+  .stat-item:last-child{border-right:none;}
+  .stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold-light);line-height:1;}
+  .stat-label{font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:4px;}
+
+  /* SECTIONS */
+  .section{padding:64px 24px;}
+  .section-label{font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .section-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold);}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:300;color:var(--navy);line-height:1.15;margin-bottom:24px;}
+
+  /* MARKETPLACE */
+  .marketplace{background:var(--white);border-bottom:1px solid var(--border);}
+  .marketplace-body{font-size:.88rem;color:var(--gray);line-height:1.75;max-width:560px;margin-bottom:32px;}
+  .marketplace-card{display:flex;align-items:center;gap:20px;padding:24px;background:var(--cream);border:1.5px solid var(--border);border-radius:12px;text-decoration:none;max-width:480px;transition:box-shadow .2s,border-color .2s;}
+  .marketplace-card:hover,.marketplace-card:active{box-shadow:0 8px 32px rgba(26,35,50,.1);border-color:var(--gold);}
+  .marketplace-icon{width:56px;height:56px;border-radius:12px;background:#1877F2;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.6rem;}
+  .marketplace-info{flex:1;}
+  .marketplace-info strong{display:block;font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:2px;}
+  .marketplace-info span{font-size:.78rem;color:var(--gray);}
+  .marketplace-arrow{font-size:1.2rem;color:var(--gold);}
+  .marketplace-note{margin-top:16px;font-size:.78rem;color:var(--gray);}
+
+  /* ABOUT */
+  .about{background:var(--cream);}
+  .about-body{font-size:.9rem;color:var(--gray);line-height:1.8;max-width:600px;}
+  .about-body p+p{margin-top:16px;}
+  .about-body strong{color:var(--navy);font-weight:600;}
+  .about-highlight{margin-top:32px;padding:20px 24px;background:var(--gold-pale);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--navy);line-height:1.5;}
+
+  /* SCHEDULE */
+  .schedule{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .schedule-grid{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--cream);margin-top:8px;}
+  .schedule-row{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--gray-light);font-size:.85rem;}
+  .schedule-row:last-child{border-bottom:none;}
+  .schedule-day{font-weight:600;color:var(--navy);}
+  .schedule-time{color:var(--gray);}
+  .schedule-time.closed{color:#DC2626;font-weight:500;}
+  .schedule-cta{margin-top:24px;padding:24px;background:var(--navy);border-radius:12px;text-align:center;}
+  .schedule-cta p{font-size:.78rem;color:rgba(255,255,255,.6);margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase;}
+  .schedule-cta a{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--gold-light);text-decoration:none;}
+
+  /* GALLERY */
+  .gallery{background:var(--navy);padding:64px 24px;}
+  .gallery .section-label{color:var(--gold-light);}
+  .gallery .section-label::before{background:var(--gold-light);}
+  .gallery .section-title{color:var(--white);}
+  .gallery-subtitle{font-size:.83rem;color:rgba(255,255,255,.5);margin-top:-16px;margin-bottom:28px;}
+  .gallery-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:6px 16px;border-radius:100px;font-size:.72rem;font-weight:600;color:var(--gold-light);letter-spacing:.08em;margin-bottom:24px;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .gallery-item{aspect-ratio:3/4;border-radius:8px;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.04);}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:transform .35s ease;}
+  .gallery-item:hover img,.gallery-item:active img{transform:scale(1.04);}
+  .gallery-load-more{text-align:center;margin-top:24px;}
+  .gallery-load-btn{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:var(--white);padding:14px 36px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;min-height:50px;}
+  .gallery-load-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+  /* LIGHTBOX */
+  .lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.93);align-items:center;justify-content:center;flex-direction:column;padding:24px;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px;}
+  .lightbox-close{position:absolute;top:20px;right:20px;color:white;background:rgba(255,255,255,.12);border:none;border-radius:50%;width:44px;height:44px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .lightbox-nav{display:flex;gap:16px;margin-top:20px;}
+  .lightbox-nav button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:white;padding:10px 28px;border-radius:4px;font-size:.8rem;cursor:pointer;min-height:44px;font-family:'Montserrat',sans-serif;}
+
+  /* CONTACT */
+  .contact{background:var(--cream);}
+  .contact-cards{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px;}
+  .contact-card{display:flex;align-items:center;gap:16px;padding:20px;background:var(--white);border:1px solid var(--border);border-radius:12px;text-decoration:none;min-height:72px;transition:box-shadow .2s;}
+  .contact-card:hover,.contact-card:active{box-shadow:0 4px 20px rgba(26,35,50,.08);}
+  .contact-icon{width:44px;height:44px;border-radius:50%;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;}
+  .contact-info{flex:1;}
+  .contact-label{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:2px;}
+  .contact-value{font-size:.9rem;font-weight:600;color:var(--navy);}
+  .contact-arrow{color:var(--gold);font-size:1rem;}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:rgba(255,255,255,.45);text-align:center;padding:32px 24px 64px;font-size:.72rem;line-height:2;}
+  footer strong{color:var(--gold-light);}
+
+  /* RESPONSIVE */
+  @media(max-width:859px){
+    .mobile-cta{display:grid;}
+    body{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
+    .nav-links{display:none;}
+    .hero-content{padding:0 24px;}
+    .scroll-hint{display:none;}
+  }
+  @media(min-width:860px){
+    nav{padding:0 56px;}
+    .hero-content{padding:0 72px;max-width:700px;}
+    .section{padding:88px 56px;max-width:1200px;margin:0 auto;}
+    .gallery{padding:88px 56px;}
+    .gallery-grid{grid-template-columns:repeat(4,1fr);}
+    .contact-cards{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(min-width:1100px){
+    .gallery-grid{grid-template-columns:repeat(5,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile CTA -->
+<div class="mobile-cta">
+  <a href="tel:3479796664" class="cta-call">📞 Call / Text</a>
+  <a href="mailto:Azamjonodiljonov@lithia.com" class="cta-email">✉ Email Me</a>
+</div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-brand">Azamjon <span>Odiljonov</span></div>
+  <div class="nav-links">
+    <a href="#inventory">Inventory</a>
+    <a href="#gallery">Happy Customers</a>
+    <a href="#schedule">Hours</a>
+    <a href="tel:3479796664" class="nav-cta">📞 Call Now</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Prestige Lexus of Ramsey, NJ</div>
+    <h1 class="hero-name">
+      Your Trusted<br>
+      <em>Automotive</em><br>
+      Specialist
+    </h1>
+    <p class="hero-tagline">
+      Hi, I'm <strong>Azamjon</strong> — serving buyers across New Jersey with honest, no-pressure guidance on new and pre-owned vehicles. Ask for me by name.
+    </p>
+    <div class="hero-actions">
+      <a href="tel:3479796664" class="btn-gold">📞 (347) 979-6664</a>
+      <a href="#inventory" class="btn-outline">Browse Inventory ↓</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num">56+</div><div class="stat-label">Happy Clients</div></div>
+  <div class="stat-item"><div class="stat-num">5★</div><div class="stat-label">Rated Service</div></div>
+  <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Active Listings</div></div>
+</div>
+
+<!-- Marketplace -->
+<section class="section marketplace" id="inventory">
+  <div class="section-label">Current Inventory</div>
+  <h2 class="section-title">Browse My<br>Available Vehicles</h2>
+  <p class="marketplace-body">I maintain an active and up-to-date selection of vehicles across all makes and price points — new Lexus models, certified pre-owned, and quality used cars. Browse my full live inventory directly on Facebook Marketplace, complete with photos, pricing, and all the details.</p>
+  <a href="https://www.facebook.com/marketplace/profile/100008196572220/" target="_blank" rel="noopener" class="marketplace-card">
+    <div class="marketplace-icon">🛒</div>
+    <div class="marketplace-info">
+      <strong>View All My Listings</strong>
+      <span>Facebook Marketplace · 20+ active vehicles</span>
+    </div>
+    <div class="marketplace-arrow">→</div>
+  </a>
+  <p class="marketplace-note">💬 See something you like? Call or text me at <strong>(347) 979-6664</strong></p>
+</section>
+
+<!-- About -->
+<section class="section about" id="about">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title">The Experience<br>You Deserve</h2>
+  <div class="about-body">
+    <p>Finding the right vehicle is one of the biggest decisions you'll make — and you deserve a specialist who puts your needs first. I take the time to understand exactly what you're looking for, whether it's a sporty sedan, a family SUV, or a dependable daily driver.</p>
+    <p>Based at <strong>Prestige Lexus of Ramsey</strong>, I work with new Lexus models and a wide selection of pre-owned makes including BMW, Mercedes-Benz, Honda, Tesla, and more. No pressure, no games — just real guidance and a deal that works for you.</p>
+    <div class="about-highlight">"Every client deserves the same care and attention I would give my own family."</div>
+  </div>
+</section>
+
+<!-- Schedule -->
+<section class="section schedule" id="schedule">
+  <div class="section-label">My Hours</div>
+  <h2 class="section-title">When to Find Me</h2>
+  <div class="schedule-grid">
+    <div class="schedule-row"><span class="schedule-day">Monday</span><span class="schedule-time">1:00 PM – 8:00 PM</span></div>
+    <div class="schedule-row"><span class="schedule-day">Tuesday</span><span class="schedule-time">9:00 AM – 8:00 PM</span></div>
+    <div class="schedule-row"><span class="schedule-day">Wednesday</span><span class="schedule-time">1:00 PM – 8:00 PM</span></div>
+    <div class="schedule-row"><span class="schedule-day">Thursday</span><span class="schedule-time closed">Closed</span></div>
+    <div class="schedule-row"><span class="schedule-day">Friday</span><span class="schedule-time">9:00 AM – 8:00 PM</span></div>
+    <div class="schedule-row"><span class="schedule-day">Saturday</span><span class="schedule-time">9:00 AM – 6:00 PM</span></div>
+    <div class="schedule-row"><span class="schedule-day">Sunday</span><span class="schedule-time closed">Closed</span></div>
+  </div>
+  <div class="schedule-cta">
+    <p>Call or text anytime</p>
+    <a href="tel:3479796664">(347) 979-6664</a>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery" id="gallery" style="max-width:100%;">
+  <div class="section-label">Happy Customers</div>
+  <h2 class="section-title">Proud Moments,<br>Happy Families</h2>
+  <p class="gallery-subtitle">Real customers, real deliveries — every photo tells a story.</p>
+  <div class="gallery-counter" id="galleryCounter">⭐ Loading photos...</div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="gallery-load-more">
+    <button class="gallery-load-btn" id="galleryLoadBtn" onclick="loadMoreGallery()">See More Customers</button>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section contact" id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title">Let's Find Your<br>Perfect Vehicle</h2>
+  <div class="contact-cards">
+    <a href="tel:3479796664" class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-info"><div class="contact-label">Call or Text</div><div class="contact-value">(347) 979-6664</div></div>
+      <div class="contact-arrow">→</div>
+    </a>
+    <a href="mailto:Azamjonodiljonov@lithia.com" class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-info"><div class="contact-label">Email</div><div class="contact-value">Azamjonodiljonov@lithia.com</div></div>
+      <div class="contact-arrow">→</div>
+    </a>
+    <a href="https://maps.google.com/?q=1000+Route+17+N+Ramsey+NJ+07446" target="_blank" class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div class="contact-info"><div class="contact-label">Visit the Dealership</div><div class="contact-value">1000 Route 17 N, Ramsey NJ</div></div>
+      <div class="contact-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <strong>Azamjon Odiljonov</strong><br>
+  Sales Specialist · Prestige Lexus of Ramsey<br>
+  1000 Route 17 N, Ramsey NJ 07446 · (347) 979-6664<br><br>
+  Inventory updates regularly on Facebook Marketplace.
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Happy customer photo">
+  <div class="lightbox-nav" onclick="event.stopPropagation()">
+    <button onclick="lightboxPrev()">← Prev</button>
+    <button onclick="lightboxNext()">Next →</button>
+  </div>
+</div>
+
+<script src="photos.js"></script>
+<script>
+let galleryShown = 12;
+let lightboxIndex = 0;
+
+function renderGallery() {
+  const photos = typeof CUSTOMER_PHOTOS !== 'undefined' ? CUSTOMER_PHOTOS : [];
+  document.getElementById('galleryCounter').textContent = `⭐ ${photos.length} Happy Customers & Counting`;
+  document.getElementById('galleryGrid').innerHTML = photos.slice(0, galleryShown).map((src, i) =>
+    `<div class="gallery-item" onclick="openLightbox(${i})"><img src="${src}" alt="Happy customer ${i+1}" loading="lazy"></div>`
+  ).join('');
+  const remaining = photos.length - galleryShown;
+  const btn = document.getElementById('galleryLoadBtn');
+  btn.textContent = remaining > 0 ? `See More (${remaining} more photos)` : 'All Photos Shown';
+  btn.disabled = remaining <= 0;
+}
+function loadMoreGallery() { galleryShown += 12; renderGallery(); }
+
+function openLightbox(i) {
+  const photos = typeof CUSTOMER_PHOTOS !== 'undefined' ? CUSTOMER_PHOTOS : [];
+  lightboxIndex = i;
+  document.getElementById('lightboxImg').src = photos[i];
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lightboxPrev() {
+  const photos = typeof CUSTOMER_PHOTOS !== 'undefined' ? CUSTOMER_PHOTOS : [];
+  lightboxIndex = (lightboxIndex - 1 + photos.length) % photos.length;
+  document.getElementById('lightboxImg').src = photos[lightboxIndex];
+}
+function lightboxNext() {
+  const photos = typeof CUSTOMER_PHOTOS !== 'undefined' ? CUSTOMER_PHOTOS : [];
+  lightboxIndex = (lightboxIndex + 1) % photos.length;
+  document.getElementById('lightboxImg').src = photos[lightboxIndex];
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lightboxPrev();
+  if (e.key === 'ArrowRight') lightboxNext();
+});
+
+if (typeof CUSTOMER_PHOTOS !== 'undefined') { renderGallery(); }
+else { window.addEventListener('load', renderGallery); }
+</script>
+</body>
+</html>
